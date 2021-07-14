@@ -1,19 +1,47 @@
 seq = 'CTCAATTTTCGAGAAACGGTAAAGGTCTAAGATCCACAACAGACAATTCCGAGGATAGCAGGTATTGGACCCGCCGCCAACAGATGCCCGTTTCGGTAAAAATGTGAGAGGCCCCACAAAACAGCATTGCTCTAGGCGATAGCGGAAGCACGGTGATCAGTAAGCTGCAAAAGGGCCTCAGACATCTATCCCAGATACGGTAGCCTGGCGCCCTTTCATTAGATCCGTACAACCTGACGCATGTAGTACGCGCGGCCAAATCAAGATTCGAACCTATACAGACGGTAATTACTGAAACGCGGACCTACTTATGAACGGGTTAATGTCGTATCTGGCATAAAAATAAACGAGGTCTATCTCACCAAAGAGAAGTTACTCTGTCCGGGCGGCGGACAAATCGCTGAATGGGGAATTATAGTCACGGCTCCTTCTGAACGGTAGACCACAGGCAGGTACGTCGCCGTTTAATACGAGTCTTCGAGCAAGTGATCTCGAGAAAGGTGCCGGGGTGCGGTCAGCCGAGCGGGTATCATAGGAGCTCTAGATCCGCACTTGTGGTGCCCTTTCCGCACGCGACCACCAGGCCGTCCTTTCTAACGACCTTGTCATAGAACGTTAACAGGGAGGTATTAAGCCTATGAACACGACTCTTAAGCAACGGGGTTCAATCCTTGCCCATTGTGCTTCGACACAATTGACTCCGGCCCTACTCTCTTCCCGACAGTTGCCTCATTATCAACTGGACGCCACATGCGGGATACAAATAGATGTGCTAGTGATTCAGAAGTGGCGTTGTATTAGGCCGCATCGCTTCATAACCCTTATTTTGTCATCCGGACATCAACCTGTACAAGTAATGTCGATACCATGATGAACCCCCCGTCCGGACCAAAGTCTGAGCCCCTATAGGGAAGTCAGTTTCTCTATGTATG'
 
+
+def is_valid_dna_seq(seq):
+    """
+    (str) -> bool
+    Returns if the string seq is a valid DNA sequence
+    (that is, it is composed of only "ATGC" characters).
+    """
+    seq = seq.upper()    
+    valid_chars = ['A', 'T', 'C', 'G']
+    
+    not_valid_chars = 0
+    for char in seq:
+        if char not in valid_chars:
+            not_valid_chars += 1
+    
+    if not_valid_chars > 0:
+        return False
+    else:
+        return True
+
+
 def dna_nucleotide_count(seq):
     """
     (str) -> int int int int
     Returns the values of the nucleotide frequency for sequence seq.
     """
-    d = dict([
-        ('A',seq.count('A')),
-        ('T',seq.count('T')),
-        ('G',seq.count('G')),
-        ('C',seq.count('C'))
-        ])
-
-    return d['A'], d['C'], d['G'], d['T']
+    if is_valid_dna_seq(seq):
+        d = dict([
+            ('A',seq.count('A')),
+            ('T',seq.count('T')),
+            ('G',seq.count('G')),
+            ('C',seq.count('C'))
+            ])
+        
+        return d['A'], d['C'], d['G'], d['T']
+    else:
+        print("The DNA sequence provided is not valid.")
 
 a, c, g, t = dna_nucleotide_count(seq)
 
 print(a, c, g, t)
+
+
+
+    
